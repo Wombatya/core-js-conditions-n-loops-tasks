@@ -446,19 +446,20 @@ function sortByAsc(arr) {
  */
 function shuffleChar(str, iterations) {
   let result = str;
-  let iterDone = 1;
-  while (iterDone <= iterations) {
+  for (let i = 1; i <= iterations; i += 1) {
     let odd = '';
     let even = '';
-    for (let i = 0; i < str.length; i += 1) {
-      if (i % 2 === 0) {
-        odd += result[i];
+    for (let j = 0; j < str.length; j += 1) {
+      if (j % 2 === 0) {
+        odd += result[j];
       } else {
-        even += result[i];
+        even += result[j];
       }
     }
     result = `${odd}${even}`;
-    iterDone += 1;
+    if (result === str) {
+      return shuffleChar(str, iterations % i);
+    }
   }
   return result;
 }
