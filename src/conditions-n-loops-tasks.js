@@ -377,8 +377,25 @@ function getSpiralMatrix(size) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const rowCount = matrix.length;
+  const lastEl = matrix[matrix.length - 1];
+  let columnCount = lastEl.length;
+  let num = 0;
+
+  const result = new Array(rowCount);
+  for (let i = 0; i < rowCount; i += 1) {
+    result[i] = new Array(columnCount);
+  }
+
+  while (columnCount - 1 >= 0) {
+    for (let i = 0; i < rowCount; i += 1) {
+      result[i][columnCount - 1] = matrix[num][i];
+    }
+    num += 1;
+    columnCount -= 1;
+  }
+  return result;
 }
 
 /**
@@ -395,8 +412,19 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const result = arr;
+  for (let i = 1; i < arr.length; i += 1) {
+    const current = result[i];
+    let j = i - 1;
+
+    while (j >= 0 && result[j] > current) {
+      result[j + 1] = result[j];
+      j -= 1;
+    }
+    result[j + 1] = current;
+  }
+  return result;
 }
 
 /**
@@ -416,8 +444,23 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let result = str;
+  let iterDone = 1;
+  while (iterDone <= iterations) {
+    let odd = '';
+    let even = '';
+    for (let i = 0; i < str.length; i += 1) {
+      if (i % 2 === 0) {
+        odd += result[i];
+      } else {
+        even += result[i];
+      }
+    }
+    result = `${odd}${even}`;
+    iterDone += 1;
+  }
+  return result;
 }
 
 /**
@@ -437,8 +480,23 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  let result = Array.from(String(number), Number);
+  let i = result.length - 2;
+  while (i >= 0 && result[i] >= result[i + 1]) {
+    i -= 1;
+  }
+  let j = result.length - 1;
+  while (result[j] <= result[i]) {
+    j -= 1;
+  }
+  const prev = result[i];
+  result[i] = result[j];
+  result[j] = prev;
+  const end = result.splice(i + 1).sort((a, b) => a - b);
+  result.push(...end);
+  result = +result.join('');
+  return result;
 }
 
 module.exports = {
