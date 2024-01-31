@@ -378,22 +378,28 @@ function getSpiralMatrix(size) {
  *  ]                 ]
  */
 function rotateMatrix(matrix) {
+  const result = matrix;
   const rowCount = matrix.length;
   const lastEl = matrix[matrix.length - 1];
   let columnCount = lastEl.length;
   let num = 0;
 
-  const result = new Array(rowCount);
+  const helpingArr = new Array(rowCount);
   for (let i = 0; i < rowCount; i += 1) {
-    result[i] = new Array(columnCount);
+    helpingArr[i] = new Array(columnCount);
   }
 
   while (columnCount - 1 >= 0) {
     for (let i = 0; i < rowCount; i += 1) {
-      result[i][columnCount - 1] = matrix[num][i];
+      helpingArr[i][columnCount - 1] = matrix[num][i];
     }
     num += 1;
     columnCount -= 1;
+  }
+  for (let i = 0; i <= rowCount - 1; i += 1) {
+    for (let j = 0; j <= rowCount - 1; j += 1) {
+      result[i][j] = helpingArr[i][j];
+    }
   }
   return result;
 }
